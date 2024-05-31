@@ -1,0 +1,119 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <fstream>
+
+using namespace std;
+
+int main()
+{
+
+    cout << "Welcome to quiz grade averaging!" << endl << endl;
+
+    // ***** file validation and file reading *****
+    ifstream myFile;
+    string file;
+
+   cout << "Enter a file name: " << endl;
+   cin >> file;
+
+//opens the file
+   myFile.open(file);
+
+   //checks if the file is not open
+    while(!myFile.is_open()) {
+        cout << "Error in the file!" << endl;
+        cout << "Enter a file name: " << endl;
+        cin >> file;
+           myFile.open(file);
+    }
+
+    vector<float> grades;
+    float number;
+
+    while (myFile >> number) {
+        grades.push_back(number);
+    }
+
+    myFile.close();
+
+    // menuing
+float sum;
+float average;
+float plus;
+float i;
+    while (1)
+    {
+        string option;
+
+        // displays menu
+        cout << "Menu: " << endl;
+        cout << "0. Exit" << endl;
+        cout << "1. Display average" << endl;
+        cout << "2. Display grades" << endl;
+        cout << "3. Add new grade" << endl;
+        cout << "Enter choice: ";
+        cin >> option;
+
+        cout << endl;
+
+        // exit
+        if(option == "0")
+        {
+            break;
+        }
+        // option 1 - finds the average of the file
+if (option == "1") {
+            float sum = 0;
+            for (int i=0; i<(grades.size()); i++) {
+                sum = sum + grades.at(i); }
+            average = sum/grades.at(i);
+            cout << "The quiz average is: " << average << endl;
+            }
+    // option 2 - displays the input grades
+else if (option == "2") {
+            for (int i = 0; i < (grades.size()); i++); {
+                cout << i + 1 << grades.at(i) << endl;
+            }
+}
+
+            // option 3 -  adds another grade
+            else if (option == "3")
+            {
+                cout << "Add a grade: ";
+                cin >> plus;
+                while ((plus >= 0) && (plus < 100)) {
+                    cout <<
+                            "Grade has to be between 0-100!" << endl;
+                    cout << "Add a grade: ";
+                    cin >> plus;
+
+                }
+                    grades.push_back(plus);
+            }
+            else {
+                cout << "Not a correct option!" << endl;
+                cin >> option;
+            }
+        cout << endl;
+    }
+
+    // BONUS/Honors Requirement
+    // ************************
+if (average <= 59) {
+    cout << average << "? You have an F!" << endl; }
+else if (average <= 59) {
+    cout << average << "? You have an D!" << endl; }
+else if (average <= 79) {
+    cout << average << "? You have an C!" << endl; }
+else if (average <= 89) {
+    cout << average << "? You have an B!" << endl; }
+else {
+    cout << average << "? Congrats, you have an A!" << endl;
+}
+    cout << "Good-bye!" << endl;
+
+
+    return 0;
+}
+
